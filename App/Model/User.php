@@ -2,14 +2,14 @@
 
 class User{
     
-    public function GetUserForName(string $name, string $password){
-        $sql = "SELECT * FROM user WHERE name = $name and password = $password";
+    public function GetUserForName(string $email, string $password) : array{
+        $sql = "SELECT * FROM user WHERE email = '$email' AND password = '$password';";
 
         $conn = db::Connection();
         $pre = $conn->prepare($sql);
         $pre->execute();
 
-        $result = $pre->fetchAll();
-        var_dump($result);
+        $result = $pre->fetch();
+        return $result;
     }
 }
