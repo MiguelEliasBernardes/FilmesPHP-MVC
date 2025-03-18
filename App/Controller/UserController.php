@@ -14,12 +14,14 @@ class UserController{
         $this->email = $email;
     }
 
-    public function VerifyUser(){
+    public function VerifyUser(): array{
         $user = new User();
         $result = $user->GetUserForName($this->email, $this->password);
         $this->name = $result['name'];
-
-        //self::SetCookies();
+        $_SESSION["name"] = $this->name;
+        $_SESSION["email"] = $this->email;
+        $_SESSION["password"] = $this->password;
+        //self::SetCookies(); ---- Verificar como funciona os cookies para implementar login automatico
 
         return $result;
     }
