@@ -1,0 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Rajdhani:wght@300;400;500;600;700&family=Rammetto+One&display=swap');
+
+:root{
+    --remm: "Rammetto One";
+    --gray-600: #B5B6C9;
+    --gray-300: #1A1B2D;
+    --gray-400: #45455F;
+}
