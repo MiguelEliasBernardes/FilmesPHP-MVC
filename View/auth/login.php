@@ -15,23 +15,25 @@
         </section>
 
         <section class="flex items-center w-1/2 flex-col pt-26 gap-15">
-            <ul class="text-base rounded-2xl flex w-1/3 bg-(--gray-300) p-1 justify-center items-center text-center font-(family-name:--nunito) font-light">
-                <li class="rounded-xl py-2 w-1/2  bg-(--gray-400) text-(--purple-light) ">Login</li>
+            <ul class="text-base rounded-xl flex w-4/8 bg-(--gray-200) p-1 justify-center items-center text-center font-(family-name:--nunito) font-light">
+                <li class="rounded-xl py-2 w-1/2  bg-(--gray-300) text-(--purple-light) ">Login</li>
                 <li class="w-1/2 text-(--gray-600)">Cadastro</li>
             </ul><!-- nav buttons -->
 
-            <form action="">
-                <h2 class="font-(family-name:--remm) text-3xl">Acesse sua conta</h2>
+            <form action="" class="w-4/8 flex flex-col gap-8">
+                <h2 class="font-(family-name:--remm) text-2xl text-(--gray-800) opacity-90">Acesse sua conta</h2>
 
                 <ul class="flex flex-col gap-5">
-                    <li class="border-2 border-(--gray-300) rounded-lg flex items-center gap-5 py-2 pl-3"><div class="h-6 w-6 bg-[url(../../public/assets/icon/Envelope-Regular.svg)] bg-cover bg-center"></div><input type="email" class="w-3/4 focus:outline-none"></li>
-                    <li> <input type="text"></li>
+                    <li class="border-2 border-(--gray-300) rounded-lg  flex items-center gap-5 py-2 pl-3"> <img src="../../public/assets/icon/Envelope-Regular.svg" alt="img" class="w-6 h-6" /></> <input type="email" class="w-3/4 focus:outline-none text-(--gray-600) opacity-100 font-(family-name:--nunito)" placeholder="E-mail"></li>
+                    <li class="border-2 border-(--gray-300) rounded-lg  flex items-center gap-5 py-2 pl-3"><img src="../../public/assets/icon/Password-Regular.svg" alt="img" class="w-6 h-6" /><input type="text" class="w-3/4 focus:outline-none text-(--gray-600) opacity-100 font-(family-name:--nunito)" placeholder="Senha"></li>
                 </ul>
 
-                <button>Entrar</button>
+                <button class="bg-(--purple-base) w-full py-3 rounded-xl font-(family-name:--nunito)">Entrar</button>
             </form><!-- user login -->
         </section>
     </main>
+
+   
     
 </body>
 </html>
