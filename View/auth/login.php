@@ -16,8 +16,8 @@
 
         <section class="flex items-center w-1/2 flex-col pt-26 gap-15">
             <ul class="text-base rounded-xl flex w-4/8 bg-(--gray-200) p-1 justify-center items-center text-center font-(family-name:--nunito) font-light">
-                <li class="rounded-xl py-2 w-1/2  bg-(--gray-300) text-(--purple-light) ">Login</li>
-                <li class="w-1/2 text-(--gray-600)">Cadastro</li>
+                <li class="rounded-xl py-2 w-1/2  bg-(--gray-300) text-(--purple-light) "><a href="#">Login</a></li>
+                <li class="w-1/2 text-(--gray-600)"><a href="register.php" class="">Cadastro</a></li>
             </ul><!-- nav buttons -->
 
             <form action="" class="w-4/8 flex flex-col gap-8">
