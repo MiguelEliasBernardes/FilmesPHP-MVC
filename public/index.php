@@ -2,8 +2,10 @@
 
 session_start();
 
-require "../config/db.php";
-require "../App/Controller/UserController.php";
+require_once '../config/db.php';
+require_once '../App/Controller/MovieController.php';
+require_once '../App/Controller/UserController.php';
+require_once '../App/Controller/ReviewsController.php';
 
 function UserVerify(): void{
 

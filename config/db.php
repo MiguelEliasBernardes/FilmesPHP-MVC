@@ -5,7 +5,8 @@ class db{
     static function Connection(): PDO|array {  
 
         try{
-            $pdo = new PDO('sqlite:../config/database.db');
+            $path = __DIR__ . '/../config/database.db';
+            $pdo = new PDO("sqlite:$path");
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $pdo;
 
@@ -13,6 +14,8 @@ class db{
             echo $e->getMessage();
             return ["error" => $e->getMessage()];
         }
+
+       
     }
 
 
@@ -48,11 +51,13 @@ class db{
             FOREIGN KEY(user_id) REFERENCES user(id)
             FOREIGN KEY(movie_id) REFERENCES movie(id)
         );
-        
+          
+            
         ";
 
         $pdo->exec($sql);
-
+        //INSERT INTO movie(name, description, category, year, image) VALUES ('Gru', 'sobre', 'Action', 2022, '../../public/assets/image/OCorvo.png' );
+        
     }
 
 }
