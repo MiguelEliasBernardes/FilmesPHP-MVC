@@ -9,18 +9,22 @@ class MovieController{
     private int $year;
     private string $image;
 
-    public function CheckNumberOfFilms() {
+    public function CheckNumberOfFilms(string $search) : mixed{
 
         $movie = new Movie();
-        $resultMovies = $movie->GetAllFilms();
+        $movies = $search == '' ? $movie->GetMovies() : $movie->GetMovies($search);
+
+        foreach ($movies as &$movie) {
+            if(is_null($movie['score'])){
+                $movie['score'] = 0;
+            }
+        }
         
-        if(count($resultMovies) <= 0){
-            return include __DIR__ . '../../../View/movies/film/notHaveFilm.php';
+        if(is_null($movies)){
+            return include __DIR__ . '../../../View/movies/movie/notFoundMovies.php';
         }
 
-        return include __DIR__ . '../../../View/movies/film/haveFilm.php';
-
-
+        return include __DIR__ . '../../../View/movies/movie/movies.php';
     }
 
 

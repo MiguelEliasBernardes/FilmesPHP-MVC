@@ -33,7 +33,7 @@ class db{
         );
         
         CREATE TABLE IF NOT EXISTS movie(
-            id INTEGER PRIMARY KEY,
+            id_movie INTEGER PRIMARY KEY,
             name TEXT NOT NULL DEFAULT '',
             description TEXT NOT NULL DEFAULT '',
             category TEXT NOT NULL,
@@ -42,22 +42,25 @@ class db{
         );
 
         CREATE TABLE IF NOT EXISTS review(
-            id INTEGER PRIMARY KEY,
+            id_review INTEGER PRIMARY KEY,
             comment TEXT NOT NULL DEFAULT '',
             description TEXT NOT NULL DEFAULT '',
-            score REAL NOT NULL,
+            score TEXT NOT NULL,
             user_id INTEGER,
             movie_id INTEGER,
             FOREIGN KEY(user_id) REFERENCES user(id)
             FOREIGN KEY(movie_id) REFERENCES movie(id)
         );
-          
-            
+
+        
         ";
 
         $pdo->exec($sql);
-        //INSERT INTO movie(name, description, category, year, image) VALUES ('Gru', 'sobre', 'Action', 2022, '../../public/assets/image/OCorvo.png' );
         
+        // INSERT INTO movie(name, description, category, year, image) VALUES ('Gru', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum', 'Action', 2022, '../../public/assets/image/OCorvo.png' );
+        
+        // INSERT INTO review(comment, description, score, user_id, movie_id) VALUES('bla bla','bla','4.5',1,2)
+     
     }
 
 }
