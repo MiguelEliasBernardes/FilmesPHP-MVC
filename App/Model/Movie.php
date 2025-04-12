@@ -42,6 +42,47 @@ class Movie{
     }
 
 
+    public function GetUserMovies(?string $search = null) : array{
 
+        $pdo = db::Connection();
+        $id = $_SESSION['id'];
+        
+
+        if($search){
+            $query = "SELECT movi.id_movie, movie.name, movie.image, movie.category, movie.description, movie.year, AVG(REPLACE(review.score, ',', '.') + 0) AS score FROM review 
+            INNER JOIN movie ON review.movie_id = movie.id_movie
+            INNER JOIN user On review.user_id = user.id
+            WHERE name LIKE '%$search%' AND user.id = $id
+            GROUP BY 
+                movie.id_movie, 
+                movie.name, 
+                movie.image, 
+                movie.category, 
+                movie.description, 
+                movie.year";
+        }else{
+            $query = "SELECT movie.id_movie, movie.name, movie.image, movie.category, movie.description, movie.year, AVG(REPLACE(review.score, ',', '.') + 0) AS score FROM review 
+            INNER JOIN movie ON review.movie_id = movie.id_movie
+            INNER JOIN user On review.user_id = user.id WHERE user.id = $id
+            GROUP BY 
+                movie.id_movie, 
+                movie.name, 
+                movie.image, 
+                movie.category, 
+                movie.description, 
+                movie.year";
+        }
+
+        $query_prepare = $pdo->prepare($query);
+
+        $query_prepare->execute();
+
+        $result = $query_prepare->fetchAll();
+
+        $pdo = null;
+
+        return $result;
+    
+    }
 
 }

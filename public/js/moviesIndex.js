@@ -8,25 +8,3 @@ function searchRedirect(){
 
 
 }
-
-// function displayDescription(element) {
-
-//     const description = element.querySelector('.description');
-
-//     if (description) {
-//         description.style.display = 'block';
-//     } else {
-//         console.warn("Descrição não encontrada dentro do elemento.");
-//     }
-// }
-
-// function RemoveDescription(element) {
-
-//     const description = element.querySelector('.description');
-
-//     if (description) {
-//         description.style.display = 'none';
-//     } else {
-//         console.warn("Descrição não encontrada dentro do elemento.");
-//     }
-// }

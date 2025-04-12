@@ -1,43 +1,33 @@
 <?php
-
+use App\Helpers\SessionManager;
 require "../App/Model/User.php";
 
 class UserController{
 
-    private string $name;
-    private string $password;
-    private string $email;
+    private ?string $name;
+    private ?string $password;
+    private ?string $email;
+    private ?int $id;
 
-    public function __construct(string $name = '', string $password = '', string $email = '') {
+    public function __construct(?string $name, ?string $password, ?string $email, ?int $id) {
         $this->name = $name;
         $this->password = $password;
         $this->email = $email;
+        $this->id = $id;
     }
 
-    public function VerifyUser(): array{
+    public function authenticate(): array{
         $user = new User();
         $result = $user->GetUserForName($this->email, $this->password);
-        $this->name = $result['name'];
-        $_SESSION["name"] = $this->name;
-        $_SESSION["email"] = $this->email;
-        $_SESSION["password"] = $this->password;
-        //self::SetCookies(); ---- Verificar como funciona os cookies para implementar login automatico
 
-        return $result;
-    }
+        if(count($result) != 1){
+            return ["sucess" => false,
+                "error" => "Nenhum usuário encontrado!"];
+        } 
 
-    private static function SetCookies($user) : void{
+        SessionManager::storeUserSession($result);
 
-        $validate = strtotime("+1 month");
-
-        setcookie('sisgen_user', $user, $validate,"/" ,"", false, true);
-    }
-
-    private static function ForgetCookie() :void{
-
-        $validate = time() - 3600;
-
-        setcookie('sisgen_user', "", $validate,"/" ,"", false, true);
+        return ["sucess" => true];
     }
 
 
