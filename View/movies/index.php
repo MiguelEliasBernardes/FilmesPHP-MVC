@@ -1,5 +1,6 @@
 <?php 
-    require '../../App/Controller/MovieController.php';
+    namespace App\Controller;;
+    use App\Model;
 
     function Movies(){
         $search = isset($_GET['search']) ? $_GET['search'] : '';
@@ -14,11 +15,11 @@
 
 <!DOCTYPE html>
 <html lang="pt-br">
-<?php require "../../public/header.php";?>
+<?php require "header.php";?>
 <body class="bg-(--gray-100)">
     
     <header class="flex justify-between text-(--gray-500) px-4 py-2 items-center border-b-1 border-(--gray-300)">
-        <img src="../../public/assets/Vector/Logo.svg" alt="Logo" class="w-14 mr-20">
+        <img src="assets/Vector/Logo.svg" alt="Logo" class="w-14 mr-20">
 
         <nav>
             <ul  class="flex justify-center items-center gap-6 font-(family-name:--nunito) font-light">
@@ -31,17 +32,17 @@
                     </a>
                 </li>
                 <li class="">
-                    <a href="myfilm.php" class="flex items-center"> 
-                        <img src="../../public/assets/icon/FilmSlate-Regular.svg" alt="FilmSlate" class="w-5 mr-2"> Meus Filmes</li>
+                    <a href="index.php?route=usermovies" class="flex items-center"> 
+                        <img src="assets/icon/FilmSlate-Regular.svg" alt="FilmSlate" class="w-5 mr-2"> Meus Filmes</li>
                     </a>    
                
             </ul>
         </nav>
 
         <div class="flex gap-4 items-center">
-            <p class="font-(family-name:--nunito) font-light">Olá, Jordan</p>
-            <img src="../../public/assets/Vector/Logo.svg" alt="Profile Pic" class="w-8 rounded-sm border-(--purple-light)">
-            <img src="../../public/assets/icon/SignOut-Regular.svg" alt="Exit Button" class="w-7 bg-(--gray-300) p-1 rounded-md">
+            <p class="font-(family-name:--nunito) font-light">Olá, <?= $_SESSION['user']['name'] ?></p>
+            <img src="assets/Vector/Logo.svg" alt="Profile Pic" class="w-8 rounded-sm border-(--purple-light)">
+            <img src="assets/icon/SignOut-Regular.svg" alt="Exit Button" class="w-7 bg-(--gray-300) p-1 rounded-md">
         </div>
     </header>
 
@@ -62,6 +63,6 @@
     </main>
 
 
-    <script src="../../public/js/moviesIndex.js" ></script>
+    <script src="/js/moviesIndex.js" ></script>
 </body>
 </html>

@@ -1,9 +1,9 @@
 <?php 
-require '../../App/Controller/MovieController.php';
+
+use App\Controller\MovieController;
+
 
 function Movies(){
-
-    $_SESSION['id'] = 1;
 
     $search = isset($_GET['search']) ? $_GET['search'] : '';
     $case = "user";
@@ -18,11 +18,11 @@ function Movies(){
 
 <!DOCTYPE html>
 <html lang="pt-br">
-<?php require "../../public/header.php";?>
+<?php require "header.php";?>
 <body class="bg-(--gray-100)">
     
     <header class="flex justify-between text-(--gray-500) px-4 py-2 items-center border-b-1 border-(--gray-300)">
-        <img src="../../public/assets/Vector/Logo.svg" alt="Logo" class="w-14 mr-20">
+        <img src="assets/Vector/Logo.svg" alt="Logo" class="w-14 mr-20">
 
         <nav>
             <ul  class="flex justify-center items-center gap-6 font-(family-name:--nunito) font-light">
@@ -47,8 +47,8 @@ function Movies(){
 
         <div class="flex gap-4 items-center">
             <p class="font-(family-name:--nunito) font-light">Olá, Jordan</p>
-            <img src="../../public/assets/Vector/Logo.svg" alt="Profile Pic" class="w-8 rounded-sm border-(--purple-light)">
-            <img src="../../public/assets/icon/SignOut-Regular.svg" alt="Exit Button" class="w-7 bg-(--gray-300) p-1 rounded-md">
+            <img src="assets/Vector/Logo.svg" alt="Profile Pic" class="w-8 rounded-sm border-(--purple-light)">
+            <img src="assets/icon/SignOut-Regular.svg" alt="Exit Button" class="w-7 bg-(--gray-300) p-1 rounded-md">
         </div>
     </header>
 
@@ -64,16 +64,14 @@ function Movies(){
                     <input type="text" placeholder="Pesquisar filme" class="focus:outline-none text-(--gray-600) opacity-100 font-(family-name:--nunito)">
                 </div>
 
-                <a class="bg-(--purple-base) font-(family-name:--nunito) flex items-center gap-3 px-6 py-4 rounded-lg" href="#"><img class="w-6" src="../../public/assets/Icon/Plus-Regular.svg" alt="plus"> Novo</a>
+                <a class="bg-(--purple-base) font-(family-name:--nunito) flex items-center gap-3 px-6 py-4 rounded-lg" href="#"><img class="w-6" src="assets/Icon/Plus-Regular.svg" alt="plus"> Novo</a>
             </div>
             
 
         </section>
         
         <section class="w-11/12 mx-auto mt-10">
-            <ul class="grid grid-cols-4 gap-6">
                 <?php Movies() ?>
-            </ul>    
         </section>
     </main>
 

@@ -1,6 +1,7 @@
 <?php
+namespace App\Controller;
+use App\Model\User;
 use App\Helpers\SessionManager;
-require "../App/Model/User.php";
 
 class UserController{
 
@@ -9,26 +10,58 @@ class UserController{
     private ?string $email;
     private ?int $id;
 
-    public function __construct(?string $name, ?string $password, ?string $email, ?int $id) {
-        $this->name = $name;
-        $this->password = $password;
-        $this->email = $email;
-        $this->id = $id;
+    public function authenticate() : void{
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $email = $_POST['email'] ?? '';
+            $password = $_POST['password'] ?? '';
+
+            $userModel = new User();
+            $user = $userModel->GetUserForName($email, $password);
+            
+            if ($user && $password == $user['password']) {
+                SessionManager::set('user',[
+                    "id" => $user['id'],
+                    "name" => $user['name']
+                ]);
+
+                require __DIR__ . '../../../View/movies/index.php';
+                exit;
+            }else{
+                require __DIR__ . '../../../View/auth/login.php?error=loginwrong';
+            }
+            
+        }else{
+            require __DIR__ . '../../../View/auth/login.php';
+        }
     }
 
-    public function authenticate(): array{
-        $user = new User();
-        $result = $user->GetUserForName($this->email, $this->password);
 
-        if(count($result) != 1){
-            return ["sucess" => false,
-                "error" => "Nenhum usuário encontrado!"];
-        } 
+    public function register() : void{
 
-        SessionManager::storeUserSession($result);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $name = $_POST['name'] ?? '';
+            $email = $_POST['email'] ?? '';
+            $password = $_POST['password'] ?? '';
 
-        return ["sucess" => true];
+            $userModel = new User();
+            $user = $userModel->RegisterUser($name, $email, $password);
+            
+            if ($user && $password == $user['password']) {
+                SessionManager::set('user',[
+                    "id" => $user['id'],
+                    "name" => $user['name']
+                ]);
+
+                require __DIR__ . '../../../View/movies/index.php';
+                exit;
+            }else{
+                require __DIR__ . '../../../View/auth/register.php';
+            }
+            
+        }else{
+            require __DIR__ . '../../../View/auth/register.php';
+        }
     }
-
 
 }

@@ -1,6 +1,10 @@
 <?php
 
+namespace App\Model;
+use App\Config\db;
+
 require_once __DIR__ . '/../../config/db.php';
+
 class Movie{
 
     public function GetMovies(?string $search = null) : array{
@@ -45,13 +49,14 @@ class Movie{
     public function GetUserMovies(?string $search = null) : array{
 
         $pdo = db::Connection();
-        $id = $_SESSION['id'];
+        
+        $id = $_SESSION['user']['id'];
         
 
         if($search){
-            $query = "SELECT movi.id_movie, movie.name, movie.image, movie.category, movie.description, movie.year, AVG(REPLACE(review.score, ',', '.') + 0) AS score FROM review 
-            INNER JOIN movie ON review.movie_id = movie.id_movie
-            INNER JOIN user On review.user_id = user.id
+            $query = "SELECT movi.id_movie, movie.name, movie.image, movie.category, movie.description, movie.year, AVG(REPLACE(review.score, ',', '.') + 0) AS score FROM user 
+            INNER JOIN movie ON user.id = movie.user_id
+            INNER JOIN review On user.id = review.user_id
             WHERE name LIKE '%$search%' AND user.id = $id
             GROUP BY 
                 movie.id_movie, 
@@ -61,9 +66,9 @@ class Movie{
                 movie.description, 
                 movie.year";
         }else{
-            $query = "SELECT movie.id_movie, movie.name, movie.image, movie.category, movie.description, movie.year, AVG(REPLACE(review.score, ',', '.') + 0) AS score FROM review 
-            INNER JOIN movie ON review.movie_id = movie.id_movie
-            INNER JOIN user On review.user_id = user.id WHERE user.id = $id
+            $query = "SELECT movie.id_movie, movie.name, movie.image, movie.category, movie.description, movie.year, AVG(REPLACE(review.score, ',', '.') + 0) AS score FROM user 
+            INNER JOIN movie ON user.id = movie.user_id
+            LEFT JOIN review On user.id = review.user_id WHERE user.id = $id
             GROUP BY 
                 movie.id_movie, 
                 movie.name, 

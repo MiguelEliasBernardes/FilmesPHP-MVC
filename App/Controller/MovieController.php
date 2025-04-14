@@ -1,6 +1,9 @@
 <?php
 
-require '/xampp/htdocs/FilmesPHP-MVC/App/Model/Movie.php';
+namespace App\Controller;
+use App\Model\Movie;
+
+
 class MovieController{
 
     private string $name;
