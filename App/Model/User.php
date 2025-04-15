@@ -3,15 +3,15 @@ namespace App\Model;
 use App\Config\db;
 class User{
     
-    public function GetUserForName(string $email, string $password) : array | bool{
-        $sql = "SELECT * FROM user WHERE email = '$email' AND password = '$password';";
+    public function GetUserForName(string $email) : array | bool{
+        $sql = "SELECT * FROM user WHERE email = '$email';";
 
         $conn = db::Connection();
         $pre = $conn->prepare($sql);
         $pre->execute();
 
-        $result = $pre->fetch();
-
+        $result = $pre->fetch(\PDO::FETCH_ASSOC);
+        
         return $result;
     }
 
@@ -21,11 +21,9 @@ class User{
 
         $conn = db::Connection();
         $pre = $conn->prepare($sql);
-        $pre->execute();
+        
+        return $pre->execute();
 
-        $result = $pre->fetch();
-
-        return $result;
     }
 
 }

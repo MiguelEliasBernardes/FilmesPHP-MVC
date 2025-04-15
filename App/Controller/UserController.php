@@ -17,9 +17,10 @@ class UserController{
             $password = $_POST['password'] ?? '';
 
             $userModel = new User();
-            $user = $userModel->GetUserForName($email, $password);
-            
-            if ($user && $password == $user['password']) {
+            $user = $userModel->GetUserForName($email);
+
+            if ($user && isset($user['password']) && password_verify($password, $user['password'])) {
+
                 SessionManager::set('user',[
                     "id" => $user['id'],
                     "name" => $user['name']
@@ -44,10 +45,18 @@ class UserController{
             $email = $_POST['email'] ?? '';
             $password = $_POST['password'] ?? '';
 
+            $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+
             $userModel = new User();
-            $user = $userModel->RegisterUser($name, $email, $password);
+            $sucess = $userModel->RegisterUser($name, $email, $passwordHash);
+
+            var_dump($sucess);
+            die;
             
-            if ($user && $password == $user['password']) {
+            if ($sucess) {
+
+                $user = $userModel->GetUserForName($email);
+
                 SessionManager::set('user',[
                     "id" => $user['id'],
                     "name" => $user['name']
