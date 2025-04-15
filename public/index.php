@@ -35,6 +35,17 @@ switch ($route) {
         header('Location: /?route=login');
         break;
 
+    case 'add':
+        if (!SessionManager::isLogged()) {
+            header('Location: /?route=login');
+            exit;
+        }
+
+        $controller = new MovieController();
+        $controller->add();
+
+        break;
+
     case 'register':
         $controller = new UserController();
         $controller->register();
@@ -47,41 +58,34 @@ switch ($route) {
         }
 
         require __DIR__ . '../../View/movies/myfilm.php';
-
-
         break;
 
-    case 'movies':
-        $controller = new MovieController();
-        //$controller->index(); // Exemplo: listar filmes
+    case 'explore':
+        if (!SessionManager::isLogged()) {
+            header('Location: /?route=login');
+            exit;
+        }
+
+        require __DIR__ . '../../View/movies/index.php';
         break;
 
-    case 'reviews':
-        $controller = new ReviewsController();
-        //$controller->index(); // Exemplo: listar reviews
+    case 'about':
+
+        if (!SessionManager::isLogged()) {
+            header('Location: /?route=login');
+            exit;
+        }
+
+        $id = $_GET['movie_id'] ?? '';
+        $review = new MovieController();
+        $review->GetFilm($id);
+
+        $review != false 
+        ? require __DIR__ . "../../View/reviews/about.php" 
+        : require __DIR__ . "../../View/movies/index.php";
+
         break;
 
     default:
         echo "Página não encontrada.";
 }
-
-
-// function UserVerify(): void{
-
-
-//     $_SESSION['email'] = "";
-//     $_SESSION['password'] = "";
-
-//     $email = $_SESSION['email'];
-//     $password = $_SESSION['password'];
-    
-//     if($email == "" && $password == ""){
-//         header('Location: ../View/auth/login.php');
-//     }else{
-//         $user = new UserController(email: $email, password:$password);
-//         $user->VerifyUser();
-//         header('Location: ../View/movies/index.php');
-//     }
-// }
-
-// UserVerify();
