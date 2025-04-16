@@ -4,8 +4,14 @@
     use App\Model\Movie;
 
     $total_estrelas = 5;
-    $nota = 3.5;
+    $nota = $movie['average_score'];
+    
+    function getReviews(?int $id){
 
+        $reviewController = new ReviewsController();
+        $reviewController->getMoviesReviews($id);
+
+    }
 ?>
 
 
@@ -96,7 +102,7 @@
                         </svg>
                     <?php endfor; ?>
 
-                    <p class="ml-2 text-(--gray-700) font-(family-name:--rajd) text-3xl font-bold">4 <span class="text-base font-light text-(--gray-600) font-(family-name:--nunito)">( 5 avaliações )</span></p>
+                    <p class="ml-2 text-(--gray-700) font-(family-name:--rajd) text-3xl font-bold"><?= $movie['average_score'] ?><span class="text-base font-light text-(--gray-600) font-(family-name:--nunito)"> ( <?= $movie['quantity'] ?> avaliações )</span></p>
                 </div>
 
                 <p class="mt-10 text-lg">
@@ -119,7 +125,7 @@
             </div>
 
             <div>
-
+                <?php getReviews($movie['id_movie']); ?>
             </div>
         </section>
 

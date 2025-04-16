@@ -82,10 +82,9 @@ switch ($route) {
 
         if($id != ""){
             $review->GetMovie($id); 
+        }else{
+            header("Location: index.php?route=explore");
         }  
-
-        header("Location: index.php?route=explore");
-
         break;
 
     default:

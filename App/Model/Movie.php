@@ -13,7 +13,7 @@ class Movie{
         $conn = db::Connection();
 
         if($search){
-            $query = "SELECT id_movie, name, image, category, movie.description, year, AVG(REPLACE(score, ',', '.') + 0) AS score FROM movie 
+            $query = "SELECT id_movie, name, image, category, movie.description, year, ROUND(AVG(REPLACE(score, ',', '.') + 0),1) AS score FROM movie 
             LEFT JOIN review ON movie.id_movie = review.movie_id WHERE name LIKE '%$search%'
             GROUP BY 
                 movie.id_movie, 
@@ -24,7 +24,7 @@ class Movie{
                 movie.year";
                 
         }else{
-            $query = "SELECT id_movie, name, image, category, movie.description, year, AVG(REPLACE(score, ',', '.') + 0) AS score FROM movie
+            $query = "SELECT id_movie, name, image, category, movie.description, year, ROUND(AVG(REPLACE(score, ',', '.') + 0),1) AS score FROM movie
             LEFT JOIN review ON movie.id_movie = review.movie_id
             GROUP BY 
                 movie.id_movie, 
@@ -55,9 +55,9 @@ class Movie{
         
 
         if($search){
-            $query = "SELECT movi.id_movie, movie.name, movie.image, movie.category, movie.description, movie.year, AVG(REPLACE(review.score, ',', '.') + 0) AS score FROM user 
+            $query = "SELECT movi.id_movie, movie.name, movie.image, movie.category, movie.description, movie.year, ROUND(AVG(REPLACE(score, ',', '.') + 0),1) AS score FROM user 
             INNER JOIN movie ON user.id = movie.user_id
-            INNER JOIN review On user.id = review.user_id
+            INNER JOIN review On review.movie_id = movie.id_movie
             WHERE name LIKE :search% AND user.id = :id
             GROUP BY 
                 movie.id_movie, 
@@ -73,9 +73,9 @@ class Movie{
         $query_prepare->bindParam(':id', $id, \PDO::PARAM_INT);
 
         }else{
-            $query = "SELECT movie.id_movie, movie.name, movie.image, movie.category, movie.description, movie.year, AVG(REPLACE(review.score, ',', '.') + 0) AS score FROM user 
+            $query = "SELECT movie.id_movie, movie.name, movie.image, movie.category, movie.description, movie.year, ROUND(AVG(REPLACE(score, ',', '.') + 0),1) AS score FROM user 
             INNER JOIN movie ON user.id = movie.user_id
-            LEFT JOIN review On user.id = review.user_id WHERE user.id = :id
+            LEFT JOIN review On review.movie_id = movie.id_movie WHERE user.id = :id
             GROUP BY 
                 movie.id_movie, 
                 movie.name, 
@@ -121,7 +121,13 @@ class Movie{
 
         $conn = db::Connection();
 
-        $sql = "SELECT * FROM movie WHERE id_movie = :id_movie";
+        $sql = "SELECT movie.id_movie, movie.name, movie.description, movie.category, movie.year, movie.image,
+        count(review.score) as quantity,
+        ROUND(AVG(review.score), 1) as average_score
+        FROM movie
+        LEFT JOIN review ON movie.id_movie = review.movie_id
+        WHERE id_movie = :id_movie
+        GROUP BY movie.id_movie, movie.name, movie.description, movie.category, movie.year, movie.image";
         $sql_prepare = $conn->prepare($sql);
 
         $sql_prepare->bindParam('id_movie', $id, \PDO::PARAM_INT);
