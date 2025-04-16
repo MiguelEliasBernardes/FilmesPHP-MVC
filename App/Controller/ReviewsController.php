@@ -5,7 +5,7 @@ use App\Model\Reviews;
 
 class ReviewsController{
     
-    public function Reviews(int $movie_id) : void {
+    public function getMoviesReviews(int $movie_id) : void {
 
         $reviewModel = new Reviews();
 

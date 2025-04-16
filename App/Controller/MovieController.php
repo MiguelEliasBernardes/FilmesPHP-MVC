@@ -35,9 +35,9 @@ class MovieController{
         if(count($movie) > 0){
             require __DIR__ . "../../../View/reviews/about.php"; 
         
+        }else{
+            require __DIR__ . "../../View/movies/index.php";
         }
-
-        require __DIR__ . "../../View/movies/index.php";
 
     }
 
