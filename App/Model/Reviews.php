@@ -5,7 +5,7 @@ use App\Config\db;
 
 class Reviews{
 
-    public function GetAllReviewsFromFilme(?int $id){
+    public function GetAllReviewsFromFilme(?int $id) : array{
 
         $conn = db::Connection();
 
@@ -21,7 +21,9 @@ class Reviews{
 
         $sql_prepare->execute();
 
-        return $sql_prepare;
+        $result = $sql_prepare->fetchAll();
+
+        return $result;
     }
 
 }
