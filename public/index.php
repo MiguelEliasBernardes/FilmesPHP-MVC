@@ -32,12 +32,12 @@ switch ($route) {
 
     case 'logout':
         SessionManager::destroy();
-        header('Location: /?route=login');
+        header('Location: index.php?route=login');
         break;
 
     case 'add':
         if (!SessionManager::isLogged()) {
-            header('Location: /?route=login');
+            header('Location: index.php?route=login');
             exit;
         }
 
@@ -53,7 +53,7 @@ switch ($route) {
 
     case 'usermovies':
         if (!SessionManager::isLogged()) {
-            header('Location: /?route=login');
+            header('Location: index.php?route=login');
             exit;
         }
 
@@ -62,7 +62,7 @@ switch ($route) {
 
     case 'explore':
         if (!SessionManager::isLogged()) {
-            header('Location: /?route=login');
+            header('Location: index.php?route=login');
             exit;
         }
 
@@ -72,17 +72,19 @@ switch ($route) {
     case 'about':
 
         if (!SessionManager::isLogged()) {
-            header('Location: /?route=login');
+            header('Location: index.php?route=login');
             exit;
         }
 
+
         $id = $_GET['movie_id'] ?? '';
         $review = new MovieController();
-        $review->GetFilm($id);
 
-        $review != false 
-        ? require __DIR__ . "../../View/reviews/about.php" 
-        : require __DIR__ . "../../View/movies/index.php";
+        if($id != ""){
+            $review->GetMovie($id); 
+        }  
+
+        header("Location: index.php?route=explore");
 
         break;
 

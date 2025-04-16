@@ -1,18 +1,10 @@
 <?php 
-$total_estrelas = 5;
-$nota = 3.5;
-
     namespace App\Controller;;
     use App\Model;
-use App\Model\Movie;
+    use App\Model\Movie;
 
-    function (){
-
-        $movie_id = $_GET['movie_id'] ?? '';
-
-        $reviewModel = new Movie();
-        $reviewModel->getFilm($movie_id);
-    }
+    $total_estrelas = 5;
+    $nota = 3.5;
 
 ?>
 
@@ -57,7 +49,7 @@ use App\Model\Movie;
     <main class="flex items-center flex-col h-full">
 
         <section class=" w-3/4 h-full flex items-center gap-10 text-(--gray-600) font-(family-name:--nunito)">
-            <img src="assets/image/movies/OCorvo.png" alt="movie picture" class="h-4/5 rounded-lg shadow-[0px_0px_9px_0px_#892CCD]">
+            <img src="<?= $movie['image'] ?>" alt="movie picture" class="h-4/5 rounded-lg shadow-[0px_0px_9px_0px_#892CCD]">
 
             <div class="h-4/5 flex flex-col gap-5">
                 <a href="" class="flex gap-2 items-center">
@@ -67,11 +59,11 @@ use App\Model\Movie;
                     Voltar
                 </a>
 
-                <h2 class="text-(--gray-700) font-(family-name:--rajd) text-3xl font-bold tracking-wide">Pobres Criaturas</h2>
+                <h2 class="text-(--gray-700) font-(family-name:--rajd) text-3xl font-bold tracking-wide"><?= $movie['name'] ?></h2>
 
                 <div>
-                    <p><span class="font-bold">Categoria:</span> Drama</p>
-                    <p><span class="font-bold">Ano:</span> 2023</p>
+                    <p><span class="font-bold">Categoria:</span> <?= $movie['category'] ?></p>
+                    <p><span class="font-bold">Ano:</span> <?= $movie['year'] ?></p>
                 </div>
 
                 <div class="flex space-y-2 items-center">
@@ -108,7 +100,7 @@ use App\Model\Movie;
                 </div>
 
                 <p class="mt-10 text-lg">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Provident modi possimus iste nihil corporis. Eius obcaecati provident, deserunt aut veniam consequuntur quam quo ipsum unde eaque sed ut nesciunt. Iste!
+                    <?= $movie['description'] ?>
                 </p>
             </div>
         </section>

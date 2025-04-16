@@ -27,16 +27,17 @@ class MovieController{
         return include __DIR__ . "$viewPath";
     }
 
-    public function GetFilm(int $id) : array | bool{
+    public function GetMovie(string $id) : void{
 
         $reviewModel = new Movie();
         $movie = $reviewModel->getFilm($id);
 
         if(count($movie) > 0){
-            return $movie;
+            require __DIR__ . "../../../View/reviews/about.php"; 
+        
         }
 
-        return false;
+        require __DIR__ . "../../View/movies/index.php";
 
     }
 

@@ -117,7 +117,7 @@ class Movie{
         return $query_prepare->execute();
     }
 
-    public function getFilm(int $id){
+    public function getFilm(string $id){
 
         $conn = db::Connection();
 
