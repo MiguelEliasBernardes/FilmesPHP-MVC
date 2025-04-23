@@ -42,7 +42,7 @@
         <div class="flex gap-4 items-center">
             <p class="font-(family-name:--nunito) font-light">Olá, <?= $_SESSION['user']['name'] ?></p>
             <img src="assets/Vector/Logo.svg" alt="Profile Pic" class="w-8 rounded-sm border-(--purple-light)">
-            <img src="assets/icon/SignOut-Regular.svg" alt="Exit Button" class="w-7 bg-(--gray-300) p-1 rounded-md">
+            <a href="index.php?route=logout"><img src="assets/icon/SignOut-Regular.svg" alt="Exit Button" class="w-7 bg-(--gray-300) p-1 rounded-md"></a>
         </div>
     </header>
 
@@ -63,6 +63,6 @@
     </main>
 
 
-    <script src="/js/moviesIndex.js" ></script>
+    <script src="js/moviesIndex.js" ></script>
 </body>
 </html>

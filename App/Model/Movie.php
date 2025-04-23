@@ -13,7 +13,7 @@ class Movie{
         $conn = db::Connection();
 
         if($search){
-            $query = "SELECT id_movie, name, image, category, movie.description, year, ROUND(AVG(REPLACE(score, ',', '.') + 0),1) AS score FROM movie 
+            $query = "SELECT id_movie, movie.name, movie.image, movie.category, movie.description, movie.year, ROUND(AVG(REPLACE(score, ',', '.') + 0),1) AS score FROM movie 
             LEFT JOIN review ON movie.id_movie = review.movie_id WHERE name LIKE '%$search%'
             GROUP BY 
                 movie.id_movie, 
@@ -24,7 +24,7 @@ class Movie{
                 movie.year";
                 
         }else{
-            $query = "SELECT id_movie, name, image, category, movie.description, year, ROUND(AVG(REPLACE(score, ',', '.') + 0),1) AS score FROM movie
+            $query = "SELECT id_movie, movie.name, image, category, movie.description, year, ROUND(AVG(REPLACE(score, ',', '.') + 0),1) AS score FROM movie
             LEFT JOIN review ON movie.id_movie = review.movie_id
             GROUP BY 
                 movie.id_movie, 
@@ -134,7 +134,7 @@ class Movie{
 
         $sql_prepare->execute();
 
-        $result = $sql_prepare->fetch();
+        $result = $sql_prepare->fetch();    
 
         return $result;
     }

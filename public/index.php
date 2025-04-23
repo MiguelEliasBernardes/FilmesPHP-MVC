@@ -87,6 +87,17 @@ switch ($route) {
         }  
         break;
 
+    case 'createReview';
+        if (!SessionManager::isLogged()) {
+            header('Location: index.php?route=login');
+            exit;
+        }
+
+        $reviewController = new ReviewsController();
+        $reviewController->createReview();
+
+        break;
+
     default:
         echo "Página não encontrada.";
 }

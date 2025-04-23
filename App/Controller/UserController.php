@@ -49,9 +49,6 @@ class UserController{
 
             $userModel = new User();
             $sucess = $userModel->RegisterUser($name, $email, $passwordHash);
-
-            var_dump($sucess);
-            die;
             
             if ($sucess) {
 

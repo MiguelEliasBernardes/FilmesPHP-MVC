@@ -18,7 +18,7 @@ class User{
 
     public function RegisterUser(string $name, string $email, string $password) : bool{
 
-        $sql = "INSERT INTO user(name,email,password,telephone) VALUES(:name, :email, :password, '');";
+        $sql = "INSERT INTO user(name,email,password) VALUES(:name, :email, :password);";
 
         $conn = db::Connection();
         $pre = $conn->prepare($sql);

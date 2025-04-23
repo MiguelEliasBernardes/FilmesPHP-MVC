@@ -34,9 +34,9 @@ class MovieController{
 
         if(count($movie) > 0){
             require __DIR__ . "../../../View/reviews/about.php"; 
-        
         }else{
-            require __DIR__ . "../../View/movies/index.php";
+            header("Location: index.php?route=explore");
+            exit;
         }
 
     }
@@ -51,6 +51,9 @@ class MovieController{
             $description = $_POST['description'] ?? '';
             $image = 'assets/image/movies/' . $_FILES['image']['name'] ?? '';
             $user_id = $_SESSION['user']['id'] ?? '';
+            $image_tmp = $_FILES['image']['tmp_name'];
+
+            move_uploaded_file($image_tmp,$image);
 
             $movieModel = new Movie();
             $movie = $movieModel->add($title, $year, $category, $description, $image, $user_id);
